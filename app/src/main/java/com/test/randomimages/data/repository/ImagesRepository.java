@@ -1,5 +1,6 @@
 package com.test.randomimages.data.repository;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
@@ -26,7 +27,7 @@ public class ImagesRepository implements Repository {
 
 
     @Override
-    public Observable<Drawable> getImage() {
+    public Observable<Bitmap> getImage() {
         return dataSource.getImage();
     }
 }

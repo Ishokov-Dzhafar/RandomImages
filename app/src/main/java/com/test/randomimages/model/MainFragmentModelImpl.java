@@ -1,5 +1,6 @@
 package com.test.randomimages.model;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 import com.test.randomimages.data.repository.Repository;
@@ -15,7 +16,7 @@ import io.reactivex.Scheduler;
  * Created by dzhafar on 15.04.18.
  */
 
-public class MainFragmentModelImpl extends UseCase<Drawable> {
+public class MainFragmentModelImpl extends UseCase<Bitmap> {
 
     private final Repository repository;
 
@@ -27,7 +28,7 @@ public class MainFragmentModelImpl extends UseCase<Drawable> {
     }
 
     @Override
-    protected Observable<Drawable> createObservableUseCase() {
+    protected Observable<Bitmap> createObservableUseCase() {
         return this.repository.getImage();
     }
 }

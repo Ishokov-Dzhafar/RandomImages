@@ -1,7 +1,10 @@
 package com.test.randomimages.data.datasource;
 
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+
+import com.test.randomimages.data.datasource.factoryImage.ImageLoadingMethod;
 
 import javax.inject.Inject;
 
@@ -14,23 +17,16 @@ import io.reactivex.Observable;
 
 public class ImageDataSource implements DataSource {
 
-    @Inject ImageDataSource() {
+    private ImageLoadingMethod imageLoadingMethod;
+    private final String imageAPI = "https://picsum.photos/600/800/?random";
+
+
+    @Inject ImageDataSource(ImageLoadingMethod imageLoadingMethod) {
+        this.imageLoadingMethod = imageLoadingMethod;
     }
 
     @Override
-    public Observable<Drawable> getImage() {
-        return Observable.create(emitter -> {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    emitter.onError(new Throwable("Nado dodelat"));
-                }
-            }).start();
-        });
+    public Observable<Bitmap> getImage() {
+        return this.imageLoadingMethod.getImage(ImageLoadingMethod.ImageType.OKHTTP).loadImage(imageAPI);
     }
 }

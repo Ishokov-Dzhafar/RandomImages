@@ -1,5 +1,6 @@
 package com.test.randomimages.presenter;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 import com.test.randomimages.model.MainFragmentModelImpl;
@@ -28,12 +29,13 @@ public class MainFragmentPresenter extends Presenter<MainFragmentPresenter.View>
         getRandomImage();
     }
 
+    @SuppressWarnings("unchecked")
     public void getRandomImage() {
         getView().showLoading();
-        model.execute(new DisposableObserver<Drawable>() {
+        model.execute(new DisposableObserver<Bitmap>() {
             @Override
-            public void onNext(Drawable drawable) {
-                getView().onSuccessImage(drawable);
+            public void onNext(Bitmap bitmap) {
+                getView().onSuccessImage(bitmap);
             }
 
             @Override
@@ -47,11 +49,9 @@ public class MainFragmentPresenter extends Presenter<MainFragmentPresenter.View>
             }
         });
 
-        //getRandomImage().onSuccessImage(model.getImage());
-
     }
 
     public interface View extends Presenter.View {
-        void onSuccessImage(Drawable drawable);
+        void onSuccessImage(Bitmap bitmap);
     }
 }

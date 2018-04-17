@@ -1,5 +1,6 @@
 package com.test.randomimages.data.datasource;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 import io.reactivex.Observable;
@@ -10,5 +11,5 @@ import io.reactivex.Observable;
  */
 
 public interface DataSource {
-    Observable<Drawable> getImage();
+    Observable<Bitmap> getImage();
 }

@@ -1,9 +1,11 @@
 package com.test.randomimages;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.test.randomimages.di.component.DaggerMainFragmentComponent;
 import com.test.randomimages.di.component.MainFragmentComponent;
+import com.test.randomimages.di.module.MainFragmentModule;
 
 
 /**
@@ -12,10 +14,12 @@ import com.test.randomimages.di.component.MainFragmentComponent;
 
 public class MainApplication extends Application {
     private MainFragmentComponent mainFragmentComponent;
+    private static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        MainApplication.context = getApplicationContext();
         createMainFragmentComponent();
     }
 
@@ -23,7 +27,11 @@ public class MainApplication extends Application {
         return mainFragmentComponent;
     }
 
+    public static Context getAppContext() {
+        return MainApplication.context;
+    }
+
     private void createMainFragmentComponent() {
-        mainFragmentComponent = DaggerMainFragmentComponent.builder().build();
+        mainFragmentComponent = DaggerMainFragmentComponent.builder().mainFragmentModule(new MainFragmentModule()).build();
     }
 }
